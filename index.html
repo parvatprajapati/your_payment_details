@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Payment Details</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel="stylesheet" type="text/css" href="font/icomoon/style.css">
+<link rel="stylesheet" type="text/css" href="css/jqueryUI.css">
+<script type="text/javascript" src="js/jquery3.3.1.js"></script>
+<script
+  src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"
+  integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E="
+  crossorigin="anonymous"></script>
+<style>
+   
+</style>
+</head>
+<body>
+    <div class="outer_contain">
+        <div class="container_a">
+            <div class="inner_contain">
+                <div class="r_l_c">
+                    <div class="l_c">
+                        <div class="l_c_in">
+                            <div class="prevS">
+                            <span class="icon-back fontSize13" aria-hidden="true"></span>
+                            <span>Previous Step</span>
+                        </div>
+                        </div>
+                        
+                    </div>
+                    <div class="r_c">
+                        <h1 class="heading">Your Payment Details</h1>
+                        <div class="inputG">
+                          <input type="text" required />
+                          <span class="floating-label">Card Holder Name</span>
+                        </div>
+                        <div class="inputG">
+                          <input type="text" required id="ccNumber" />
+                          <span class="floating-label">Card Number</span>
+                          <span class="validatedOK">
+                              <i class="icon-tick" aria-hidden="true"></i>
+                          </span>
+                        </div>
+                        <div class="date_and_cvv">
+                            <div class="inputG">
+                              <input type="text" id="datepicker" required />
+                              <span class="floating-label">Expiration Date</span>
+                              <span class="icon-down-arrow arrowDown"></span>
+                            </div>
+                            <div class="inputG">
+                              <input type="password" required maxlength="3" id="cvvNumber" />
+                              <span class="floating-label">CVV</span>
+                              <span class="info"><i class="icon-question opnT" aria-hidden="true"></i></span>
+                              <p class="toolTipC">lorem ipsum</p>
+                            </div>  
+                        </div>
+                        <div class="saveCard">
+                          <input type="checkbox" id="saveDetails_confirm">
+                          <label for="saveDetails_confirm">Save my details for future payment</label>
+                        </div>
+                         <div class="submitBTN">
+                        <button>Pay Now</button>
+                    </div>
+                    </div>
+                   
+                    <div class="ccImg">
+                        <img src="images/cc.png">
+                    </div>
+                </div>
+            </div>
+            <div class="circle_bg01"></div>
+             <div class="circle_bg02"></div>
+              <div class="circle_bg03"></div>
+        </div>
+    </div>
+<script type="text/javascript" src="js/custom.js"></script>
+<script type="text/javascript">
+
+    
+    $(document).ready(function(){
+
+    // Equalize height left div with right div
+    const rightDivHeight = $('.r_c').outerHeight()
+    const l_c = $('.l_c').outerHeight(rightDivHeight)
+
+    // datePicker Formating
+
+    $("#datepicker").datepicker({ 
+        dateFormat: 'mm / yy',
+        changeMonth: true,
+        changeYear: true,
+        showButtonPanel: true,
+
+        onClose: function(dateText, inst) {  
+            var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val(); 
+            var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val(); 
+            $(this).datepicker('setDate', new Date(year, month, 1)); 
+        }
+    });
+    
+    $(".monthPicker").focus(function () {
+        $(".ui-datepicker-calendar").hide();
+        $("#ui-datepicker-div").position({
+              my: "center top",
+              at: "center bottom",
+              of: $(this)
+            });
+        
+    });
+    
+});
+
+
+ $("#ccNumber").on("keydown", function(e) {
+    var cursor = this.selectionStart;
+    if (this.selectionEnd != cursor) return;
+    if (e.which == 46) {
+        if (this.value[cursor] == " ") this.selectionStart++;
+    } else if (e.which == 8) {
+        if (cursor && this.value[cursor - 1] == " ") this.selectionEnd--;
+    }
+}).on("input", function() {
+    var value = this.value;
+    var cursor = this.selectionStart;
+    var matches = value.substring(0, cursor).match(/[^0-9]/g);
+    if (matches) cursor -= matches.length;
+    value = value.replace(/[^0-9]/g, "").substring(0, 16);
+    var formatted = "";
+    for (var i=0, n=value.length; i<n; i++) {
+        if (i && i % 4 == 0) {
+            if (formatted.length <= cursor) cursor++;
+            formatted += " ";
+        }
+        formatted += value[i];
+    }
+    if (formatted == this.value) return;
+    this.value = formatted;
+    this.selectionEnd = cursor;
+
+    if ((this.value).length>=19) {
+        $('.validatedOK').addClass('active')
+    }
+    else{
+        $('.validatedOK').removeClass('active')
+    }
+});
+
+$('#cvvNumber').on("input",function(){
+    const reg = /[0-9]{3}/g
+   if (reg.test(this.value)) {
+    
+   } 
+})
+
+
+
+</script>
+</body>
+</html>
