@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="font/icomoon/style.css">
 <link rel="stylesheet" type="text/css" href="css/jqueryUI.css">
 <script type="text/javascript" src="js/jquery3.3.1.js"></script>
@@ -24,7 +25,7 @@
                     <div class="l_c">
                         <div class="l_c_in">
                             <div class="prevS">
-                            <span class="icon-back fontSize13" aria-hidden="true"></span>
+                            <span class="fa fa-long-arrow-left fontSize13" aria-hidden="true"></span>
                             <span>Previous Step</span>
                         </div>
                         </div>
@@ -40,19 +41,19 @@
                           <input type="text" required id="ccNumber" />
                           <span class="floating-label">Card Number</span>
                           <span class="validatedOK">
-                              <i class="icon-tick" aria-hidden="true"></i>
+                              <i class="fa fa-check"></i>
                           </span>
                         </div>
                         <div class="date_and_cvv">
                             <div class="inputG">
                               <input type="text" id="datepicker" required />
                               <span class="floating-label">Expiration Date</span>
-                              <span class="icon-down-arrow arrowDown"></span>
+                              <span class="fa fa-caret-down arrowDown"></span>
                             </div>
                             <div class="inputG">
-                              <input type="password" required maxlength="3" id="cvvNumber" />
+                              <input type="password" required maxlength="3" id="cvvNumber" onkeypress="isNumber(event)" />
                               <span class="floating-label">CVV</span>
-                              <span class="info"><i class="icon-question opnT" aria-hidden="true"></i></span>
+                              <span class="info"><i class="fa fa-question opnT" aria-hidden="true"></i></span>
                               <p class="toolTipC">lorem ipsum</p>
                             </div>  
                         </div>
@@ -147,12 +148,12 @@
     }
 });
 
-$('#cvvNumber').on("input",function(){
-    const reg = /[0-9]{3}/g
-   if (reg.test(this.value)) {
-    
-   } 
-})
+function isNumber(eve){
+  var char = String.fromCharCode(eve.which);
+  if (!(/[0-9]/).test(char)) {
+    eve.preventDefault();
+  }
+}
 
 
 

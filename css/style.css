@@ -269,16 +269,12 @@ input:not(:focus):valid ~ .floating-label{
   border: 1px solid green;
 }
 .saveCard input:checked + label:after {
-    content: "\e902";
-    font-family: 'icomoon' !important;
-    speak: never;
-    font-style: normal;
-    font-weight: normal;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
+    content: "\f00c";
+   display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
     -webkit-font-smoothing: antialiased;
-    display: block;
     position: absolute;
     font-size: 8px;
     left: 3px;
